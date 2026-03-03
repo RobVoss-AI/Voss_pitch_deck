@@ -1,6 +1,14 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Hls from "hls.js";
-import { Monitor, Brain, Briefcase, Lightbulb, Shield, Phone, Mail, MapPin, ChevronLeft, ChevronRight, Maximize, Minimize } from "lucide-react";
+import {
+  BookOpen, Target, Brain, Users, Mic,
+  Briefcase, GraduationCap, Calculator, Award,
+  Phone, Mail, MapPin,
+  ChevronLeft, ChevronRight, Maximize, Minimize,
+} from "lucide-react";
+
+const H = "Playfair Display, serif";
+const B = "Space Grotesk, sans-serif";
 
 /* ───────── HLS Video Background ───────── */
 function VideoBackground({ src }) {
@@ -36,11 +44,11 @@ function VideoBackground({ src }) {
 /* ───────── Logo SVG ───────── */
 function Logo() {
   return (
-    <svg width="129" height="40" viewBox="0 0 129 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="140" height="40" viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="2" y="8" width="24" height="24" rx="6" stroke="white" strokeWidth="2" fill="none" />
       <path d="M10 24 L14 16 L18 24" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
       <circle cx="14" cy="15" r="2" fill="white" />
-      <text x="34" y="26" fill="white" fontFamily="Plus Jakarta Sans, sans-serif" fontWeight="700" fontSize="16" letterSpacing="-0.02em">VOSS AI</text>
+      <text x="34" y="26" fill="white" fontFamily="Playfair Display, serif" fontWeight="700" fontSize="16" letterSpacing="-0.02em">VOSS AI</text>
     </svg>
   );
 }
@@ -85,6 +93,16 @@ function FacebookIcon({ size = 24 }) {
   );
 }
 
+function LinkedInIcon({ size = 24 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
 /* ═══════════════════════════════════════
    SLIDE 1 — Cover
    ═══════════════════════════════════════ */
@@ -95,21 +113,21 @@ function CoverSlide() {
       <div style={{ position: "relative", zIndex: 10, width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "clamp(16px, 2.5%, 40px) clamp(24px, 5.2%, 80px)" }}>
           <Logo />
-          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>Pitch Deck</span>
+          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B }}>Pitch Deck</span>
         </div>
         <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", marginTop: "-3%", padding: "0 clamp(24px, 5%, 80px)" }}>
-          <h1 style={{ color: "white", fontSize: "clamp(32px, 5.5vw, 96px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.05, margin: 0 }}>
+          <h1 style={{ color: "white", fontSize: "clamp(36px, 5.5vw, 96px)", fontFamily: H, fontWeight: 900, letterSpacing: "-0.02em", lineHeight: 1.05, margin: 0 }}>
             Voss AI Consulting
           </h1>
-          <p style={{ color: "white", opacity: 0.9, fontSize: "clamp(20px, 2.8vw, 48px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 500, marginTop: "1.5%", marginBottom: 0 }}>
-            Unlocking Business Potential
+          <p style={{ color: "white", opacity: 0.9, fontSize: "clamp(16px, 2vw, 36px)", fontFamily: B, fontWeight: 500, marginTop: "1.5%", marginBottom: 0, maxWidth: "75%" }}>
+            Research-Backed AI Solutions for Business, Education &amp; Accounting
           </p>
-          <p style={{ color: "white", opacity: 0.75, fontSize: "clamp(14px, 1.4vw, 24px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 400, marginTop: "2%", marginBottom: 0 }}>
-            By Dr. Rob Voss
+          <p style={{ color: "white", opacity: 0.6, fontSize: "clamp(13px, 1.2vw, 22px)", fontFamily: B, fontWeight: 400, marginTop: "2.5%", marginBottom: 0, letterSpacing: "0.05em" }}>
+            Dr. Robert Voss &nbsp;&middot;&nbsp; OpenAI Academy Faculty &nbsp;&middot;&nbsp; Fractional CTO
           </p>
         </div>
         <div style={{ textAlign: "center", padding: "clamp(16px, 2%, 40px) 0" }}>
-          <span style={{ color: "white", opacity: 0.6, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>2026</span>
+          <span style={{ color: "white", opacity: 0.5, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B }}>2026</span>
         </div>
       </div>
     </div>
@@ -117,62 +135,43 @@ function CoverSlide() {
 }
 
 /* ═══════════════════════════════════════
-   SLIDE 2 — Intro
+   SLIDE 2 — Credentials
    ═══════════════════════════════════════ */
-function IntroSlide() {
+function CredentialsSlide() {
+  const credentials = [
+    { Icon: Award, title: "OpenAI Academy Faculty", desc: "Research-backed AI methodologies with proven academic frameworks and evidence-based strategies." },
+    { Icon: BookOpen, title: "PhD Digital Humanities", desc: "University of Nebraska-Lincoln. 10+ years developing AI research frameworks and curricula." },
+    { Icon: GraduationCap, title: "Applied AI Minor Creator", desc: "Pioneered the first interdisciplinary AI program of its kind in the region at Northwest Missouri State." },
+    { Icon: Users, title: "Fractional CTO", desc: "Strategic technology leadership combining academic rigor with business acumen for AI initiatives." },
+  ];
+
   return (
     <div style={{ position: "relative", width: "100%", height: "100%", background: "#000", overflow: "hidden" }}>
       <VideoBackground src="https://stream.mux.com/Kec29dVyJgiPdtWaQtPuEiiGHkJIYQAVUJcNiIHUYeo.m3u8" />
       <div style={{ position: "relative", zIndex: 10, width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "clamp(16px, 2.5%, 40px) clamp(24px, 5.2%, 80px)" }}>
           <Logo />
-          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>Pitch Deck</span>
-          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>Page 001</span>
+          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B }}>Pitch Deck</span>
+          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B }}>Page 001</span>
         </div>
-        <div style={{ padding: "0 clamp(24px, 5.2%, 80px)" }}>
-          <h2 style={{ color: "white", fontSize: "clamp(28px, 3.8vw, 64px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.05, margin: 0 }}>
-            Understanding The Rise of AI
+        <div style={{ textAlign: "center", padding: "0 clamp(24px, 5.2%, 80px)" }}>
+          <p style={{ color: "white", opacity: 0.7, fontSize: "clamp(13px, 1.1vw, 20px)", fontFamily: B, fontWeight: 500, margin: "0 0 clamp(4px, 0.5%, 12px) 0", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+            Your AI Partner
+          </p>
+          <h2 style={{ color: "white", fontSize: "clamp(28px, 3.8vw, 64px)", fontFamily: H, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.05, margin: 0 }}>
+            Dr. Robert Voss
           </h2>
         </div>
-        <div style={{ display: "flex", gap: "4%", padding: "0 clamp(24px, 5.2%, 80px)", marginTop: "3.5%", flex: 1, minHeight: 0 }}>
-          <div style={{ flex: "0 0 22%" }}>
-            <p style={{ color: "white", opacity: 0.9, fontSize: "clamp(13px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif", lineHeight: 1.5, margin: "0 0 clamp(12px, 1.5%, 24px) 0" }}>
-              The AI analytics market is experiencing unprecedented growth, projected to expand from $150 billion to over $300 billion by 2027, reshaping how organizations process and interpret data.
-            </p>
-            <div style={{ display: "flex", alignItems: "baseline", gap: "clamp(6px, 0.6vw, 12px)" }}>
-              <span style={{ color: "white", fontSize: "clamp(28px, 3.8vw, 64px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 700 }}>$300</span>
-              <div>
-                <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(13px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>B</span><br />
-                <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(13px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>2027</span>
+        <div style={{ flex: 1, display: "flex", padding: "clamp(16px, 2.5%, 40px) clamp(24px, 5.2%, 80px)", gap: "clamp(10px, 1.5vw, 27px)", minHeight: 0 }}>
+          {credentials.map((cred, i) => (
+            <GlassCard key={i}>
+              <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "clamp(20px, 2.5vw, 48px)", height: "100%", position: "relative", zIndex: 1 }}>
+                <cred.Icon color="white" strokeWidth={1.5} style={{ marginBottom: "clamp(10px, 1.2vw, 20px)", width: "clamp(28px, 2.5vw, 44px)", height: "clamp(28px, 2.5vw, 44px)" }} />
+                <h3 style={{ color: "white", fontSize: "clamp(16px, 1.8vw, 32px)", fontFamily: H, fontWeight: 700, margin: "0 0 clamp(6px, 0.6vw, 12px) 0" }}>{cred.title}</h3>
+                <p style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1vw, 18px)", fontFamily: B, margin: 0, lineHeight: 1.5 }}>{cred.desc}</p>
               </div>
-            </div>
-          </div>
-          <div style={{ flex: "0 0 38%" }}>
-            <p style={{ color: "white", opacity: 0.9, fontSize: "clamp(13px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif", lineHeight: 1.5, margin: 0 }}>
-              Businesses across every sector are rapidly adopting AI-driven analysis to unlock deeper insights from their data. From predictive modeling to real-time anomaly detection, artificial intelligence is transforming raw information into strategic advantage. Organizations that integrate AI analytics report significantly faster decision-making cycles, reduced operational costs, and the ability to identify market opportunities that traditional analysis methods consistently miss. The convergence of big data, cloud computing, and advanced machine learning algorithms has created an unprecedented opportunity for companies willing to invest in intelligent data infrastructure.
-            </p>
-          </div>
-          <div style={{ flex: "0 0 20%", display: "flex", flexDirection: "column" }}>
-            <span style={{ color: "white", fontSize: "clamp(28px, 3.8vw, 64px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 700 }}>25–40%</span>
-            <p style={{ color: "white", opacity: 0.8, fontSize: "clamp(13px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif", lineHeight: 1.5, margin: "clamp(6px, 0.8%, 16px) 0" }}>
-              Average cost reduction reported by enterprises implementing AI-powered analytics platforms.
-            </p>
-            <svg viewBox="0 0 200 80" style={{ width: "100%", maxWidth: 200, marginTop: "auto" }}>
-              <defs>
-                <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#D2FF55" stopOpacity="0.4" />
-                  <stop offset="100%" stopColor="#D2FF55" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              <path d="M10 65 Q50 55 80 40 Q120 20 150 25 Q170 28 190 15 L190 75 L10 75 Z" fill="url(#areaGrad)" />
-              <path d="M10 65 Q50 55 80 40 Q120 20 150 25 Q170 28 190 15" fill="none" stroke="white" strokeWidth="2" />
-              <circle cx="10" cy="65" r="4" fill="#B750B2" stroke="white" strokeWidth="2" />
-              <circle cx="190" cy="15" r="4" fill="#B750B2" stroke="white" strokeWidth="2" />
-            </svg>
-          </div>
-        </div>
-        <div style={{ textAlign: "right", padding: "clamp(16px, 2%, 40px) clamp(24px, 5.2%, 80px)" }}>
-          <span style={{ color: "white", opacity: 0.6, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>The Rise of AI</span>
+            </GlassCard>
+          ))}
         </div>
       </div>
     </div>
@@ -180,15 +179,15 @@ function IntroSlide() {
 }
 
 /* ═══════════════════════════════════════
-   SLIDE 3 — Analytics
+   SLIDE 3 — Services
    ═══════════════════════════════════════ */
-function AnalyticsSlide() {
+function ServicesSlide() {
   const cards = [
-    { Icon: Monitor, title: "Achieving Advanced Capabilities", desc: "Thought leadership, change management, and team training." },
-    { Icon: Brain, title: "Smarter Decision-Making", desc: "Helping businesses unlock insights and optimize efficiency." },
-    { Icon: Briefcase, title: "Leaders Leveraging AI", desc: "Driving AI-driven data analytics innovation." },
-    { Icon: Lightbulb, title: "Future-Ready Solutions", desc: "Empowering organizations to stay competitive in a data-driven world." },
-    { Icon: Shield, title: "Scalable & Secure", desc: "Ensuring seamless AI integration with robust data protection." },
+    { Icon: BookOpen, title: "AI Education & Coaching", desc: "Comprehensive AI training tailored to your organization's learning objectives and industry context." },
+    { Icon: Mic, title: "Presentations & Workshops", desc: "Engaging sessions that demystify AI and inspire strategic adoption across your sector." },
+    { Icon: Target, title: "Training & Gap Analysis", desc: "Evidence-based learning paths designed for lasting AI competency and measurable results." },
+    { Icon: Brain, title: "Strategic AI Implementation", desc: "Evaluate tools, develop roadmaps, and build implementation plans aligned with your objectives." },
+    { Icon: Users, title: "Fractional CTO Services", desc: "Ongoing strategic guidance and technical leadership combining academic rigor with business acumen." },
   ];
 
   return (
@@ -197,15 +196,15 @@ function AnalyticsSlide() {
       <div style={{ position: "relative", zIndex: 10, width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "clamp(16px, 2.5%, 40px) clamp(24px, 5.2%, 80px)" }}>
           <Logo />
-          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>Pitch Deck</span>
-          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>Page 002</span>
+          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B }}>Pitch Deck</span>
+          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B }}>Page 002</span>
         </div>
         <div style={{ textAlign: "center", padding: "0 clamp(24px, 5.2%, 80px)" }}>
-          <p style={{ color: "white", opacity: 0.9, fontSize: "clamp(14px, 1.4vw, 24px)", fontFamily: "Plus Jakarta Sans, sans-serif", margin: "0 0 clamp(4px, 0.5%, 12px) 0" }}>
-            Transforming Potential into Performance with AI
+          <p style={{ color: "white", opacity: 0.7, fontSize: "clamp(13px, 1.1vw, 20px)", fontFamily: B, fontWeight: 500, margin: "0 0 clamp(4px, 0.5%, 12px) 0", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+            Evidence-Based AI Solutions
           </p>
-          <h2 style={{ color: "white", fontSize: "clamp(28px, 3.8vw, 64px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 700, margin: 0 }}>
-            Voss AI Consulting
+          <h2 style={{ color: "white", fontSize: "clamp(28px, 3.8vw, 64px)", fontFamily: H, fontWeight: 700, margin: 0 }}>
+            Our Services
           </h2>
         </div>
         <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "clamp(16px, 2%, 32px) clamp(24px, 5.2%, 80px)", gap: "clamp(10px, 1.2vw, 25px)", minHeight: 0 }}>
@@ -214,8 +213,8 @@ function AnalyticsSlide() {
               <GlassCard key={i}>
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "clamp(20px, 2.5vw, 48px)", height: "100%", position: "relative", zIndex: 1 }}>
                   <card.Icon color="white" strokeWidth={1.5} style={{ marginBottom: "clamp(10px, 1.2vw, 20px)", width: "clamp(32px, 3vw, 48px)", height: "clamp(32px, 3vw, 48px)" }} />
-                  <h3 style={{ color: "white", fontSize: "clamp(18px, 2vw, 36px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 700, margin: "0 0 clamp(6px, 0.6vw, 12px) 0" }}>{card.title}</h3>
-                  <p style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif", margin: 0, lineHeight: 1.5 }}>{card.desc}</p>
+                  <h3 style={{ color: "white", fontSize: "clamp(16px, 1.8vw, 32px)", fontFamily: H, fontWeight: 700, margin: "0 0 clamp(6px, 0.6vw, 12px) 0" }}>{card.title}</h3>
+                  <p style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B, margin: 0, lineHeight: 1.5 }}>{card.desc}</p>
                 </div>
               </GlassCard>
             ))}
@@ -225,8 +224,8 @@ function AnalyticsSlide() {
               <GlassCard key={i + 3}>
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "clamp(20px, 2.5vw, 48px)", height: "100%", position: "relative", zIndex: 1 }}>
                   <card.Icon color="white" strokeWidth={1.5} style={{ marginBottom: "clamp(10px, 1.2vw, 20px)", width: "clamp(32px, 3vw, 48px)", height: "clamp(32px, 3vw, 48px)" }} />
-                  <h3 style={{ color: "white", fontSize: "clamp(18px, 2vw, 36px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 700, margin: "0 0 clamp(6px, 0.6vw, 12px) 0" }}>{card.title}</h3>
-                  <p style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif", margin: 0, lineHeight: 1.5 }}>{card.desc}</p>
+                  <h3 style={{ color: "white", fontSize: "clamp(16px, 1.8vw, 32px)", fontFamily: H, fontWeight: 700, margin: "0 0 clamp(6px, 0.6vw, 12px) 0" }}>{card.title}</h3>
+                  <p style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B, margin: 0, lineHeight: 1.5 }}>{card.desc}</p>
                 </div>
               </GlassCard>
             ))}
@@ -238,18 +237,61 @@ function AnalyticsSlide() {
 }
 
 /* ═══════════════════════════════════════
-   SLIDE 4 — Quote
+   SLIDE 4 — Sectors
+   ═══════════════════════════════════════ */
+function SectorsSlide() {
+  const sectors = [
+    { Icon: Briefcase, title: "Business Coaching", desc: "Helping coaches and consultants integrate AI to enhance client outcomes, optimize workflows, and scale their practice with evidence-based strategies." },
+    { Icon: GraduationCap, title: "Educational Institutions", desc: "Developing AI curricula, faculty training programs, and institutional AI strategies grounded in peer-reviewed research and academic best practices." },
+    { Icon: Calculator, title: "Accounting & CPA Firms", desc: "AI-powered solutions for financial services — from workflow automation and intelligent data analysis to strategic technology adoption roadmaps." },
+  ];
+
+  return (
+    <div style={{ position: "relative", width: "100%", height: "100%", background: "#000", overflow: "hidden" }}>
+      <VideoBackground src="https://stream.mux.com/4IMYGcL01xjs7ek5ANO17JC4VQVUTsojZlnw4fXzwSxc.m3u8" />
+      <div style={{ position: "relative", zIndex: 10, width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "clamp(16px, 2.5%, 40px) clamp(24px, 5.2%, 80px)" }}>
+          <Logo />
+          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B }}>Pitch Deck</span>
+          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B }}>Page 003</span>
+        </div>
+        <div style={{ textAlign: "center", padding: "0 clamp(24px, 5.2%, 80px)" }}>
+          <p style={{ color: "white", opacity: 0.7, fontSize: "clamp(13px, 1.1vw, 20px)", fontFamily: B, fontWeight: 500, margin: "0 0 clamp(4px, 0.5%, 12px) 0", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+            Industries We Serve
+          </p>
+          <h2 style={{ color: "white", fontSize: "clamp(28px, 3.8vw, 64px)", fontFamily: H, fontWeight: 700, margin: 0 }}>
+            Three Core Verticals
+          </h2>
+        </div>
+        <div style={{ flex: 1, display: "flex", padding: "clamp(16px, 2.5%, 40px) clamp(24px, 5.2%, 80px)", gap: "clamp(10px, 1.5vw, 27px)", minHeight: 0 }}>
+          {sectors.map((sector, i) => (
+            <GlassCard key={i}>
+              <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "clamp(24px, 3vw, 56px)", height: "100%", position: "relative", zIndex: 1 }}>
+                <sector.Icon color="white" strokeWidth={1.5} style={{ marginBottom: "clamp(12px, 1.5vw, 24px)", width: "clamp(36px, 3.5vw, 56px)", height: "clamp(36px, 3.5vw, 56px)" }} />
+                <h3 style={{ color: "white", fontSize: "clamp(20px, 2.2vw, 40px)", fontFamily: H, fontWeight: 700, margin: "0 0 clamp(8px, 0.8vw, 16px) 0" }}>{sector.title}</h3>
+                <p style={{ color: "white", opacity: 0.8, fontSize: "clamp(13px, 1.1vw, 20px)", fontFamily: B, margin: 0, lineHeight: 1.6 }}>{sector.desc}</p>
+              </div>
+            </GlassCard>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════
+   SLIDE 5 — Quote
    ═══════════════════════════════════════ */
 function QuoteSlide() {
   return (
     <div style={{ position: "relative", width: "100%", height: "100%", background: "#000", overflow: "hidden" }}>
-      <VideoBackground src="https://stream.mux.com/4IMYGcL01xjs7ek5ANO17JC4VQVUTsojZlnw4fXzwSxc.m3u8" />
+      <VideoBackground src="https://stream.mux.com/Kec29dVyJgiPdtWaQtPuEiiGHkJIYQAVUJcNiIHUYeo.m3u8" />
       <div style={{ position: "relative", zIndex: 10, width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
         <div style={{ maxWidth: "70%", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
-          <span style={{ color: "white", opacity: 0.9, fontSize: "clamp(14px, 1.2vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 500 }}>
+          <span style={{ color: "white", opacity: 0.9, fontSize: "clamp(14px, 1.2vw, 20px)", fontFamily: B, fontWeight: 500 }}>
             Andrew Ng
           </span>
-          <h2 style={{ color: "white", fontSize: "clamp(28px, 3.8vw, 64px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.15, margin: 0 }}>
+          <h2 style={{ color: "white", fontSize: "clamp(28px, 3.8vw, 64px)", fontFamily: H, fontWeight: 700, fontStyle: "italic", letterSpacing: "-0.02em", lineHeight: 1.15, margin: 0 }}>
             &ldquo;Artificial Intelligence is the new electricity.&rdquo;
           </h2>
         </div>
@@ -259,15 +301,16 @@ function QuoteSlide() {
 }
 
 /* ═══════════════════════════════════════
-   SLIDE 5 — Outro / Contact
+   SLIDE 6 — Contact
    ═══════════════════════════════════════ */
-function OutroSlide() {
+function ContactSlide() {
   const contacts = [
-    { icon: <InstagramIcon size={24} />, text: "Instagram.com/vossaiconsulting" },
-    { icon: <FacebookIcon size={24} />, text: "facebook.com/profile.php?id=61573896842340" },
     { icon: <Phone size={24} color="white" strokeWidth={1.5} />, text: "+1 (660) 215-1313" },
     { icon: <Mail size={24} color="white" strokeWidth={1.5} />, text: "robvoss@vossaiconsulting.com" },
     { icon: <MapPin size={24} color="white" strokeWidth={1.5} />, text: "Headquarters: Maryville, MO, USA" },
+    { icon: <LinkedInIcon size={24} />, text: "linkedin.com/in/ai-robvoss" },
+    { icon: <InstagramIcon size={24} />, text: "instagram.com/vossaiconsulting" },
+    { icon: <FacebookIcon size={24} />, text: "facebook.com/profile.php?id=61573896842340" },
   ];
 
   return (
@@ -276,21 +319,24 @@ function OutroSlide() {
       <div style={{ position: "relative", zIndex: 10, width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "clamp(16px, 2.5%, 40px) clamp(24px, 5.2%, 80px)" }}>
           <Logo />
-          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>Pitch Deck</span>
-          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>Page 020</span>
+          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B }}>Pitch Deck</span>
+          <span style={{ color: "white", opacity: 0.8, fontSize: "clamp(12px, 1.05vw, 20px)", fontFamily: B }}>Page 004</span>
         </div>
         <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 clamp(24px, 5.2%, 80px)" }}>
-          <h2 style={{ color: "white", fontSize: "clamp(28px, 3.8vw, 64px)", fontFamily: "Plus Jakarta Sans, sans-serif", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.05, margin: 0 }}>
-            Contact Information &amp;<br /><span style={{ opacity: 0.9 }}>Final Call to Action</span>
+          <p style={{ color: "white", opacity: 0.7, fontSize: "clamp(13px, 1.1vw, 20px)", fontFamily: B, fontWeight: 500, margin: "0 0 clamp(4px, 0.5%, 12px) 0", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+            Get Started
+          </p>
+          <h2 style={{ color: "white", fontSize: "clamp(28px, 3.8vw, 64px)", fontFamily: H, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.05, margin: 0 }}>
+            Let&rsquo;s Transform Your<br /><span style={{ opacity: 0.9 }}>Organization with AI</span>
           </h2>
-          <p style={{ color: "white", opacity: 0.9, fontSize: "clamp(13px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif", lineHeight: 1.5, maxWidth: "38%", marginTop: "3%", marginBottom: 0 }}>
-            We believe in the transformative power of AI to reshape industries and create lasting value. Let's connect and explore how we can help your organization harness the full potential of intelligent data analytics.
+          <p style={{ color: "white", opacity: 0.85, fontSize: "clamp(13px, 1.05vw, 20px)", fontFamily: B, lineHeight: 1.6, maxWidth: "42%", marginTop: "2.5%", marginBottom: 0 }}>
+            Whether you&rsquo;re a business leader, educator, or accounting professional, we bring research-backed AI solutions tailored to your industry. Let&rsquo;s connect and explore how evidence-based AI implementation can drive measurable results for your organization.
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: "clamp(12px, 1.2vw, 19px)", marginTop: "3%" }}>
             {contacts.map((c, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: "clamp(10px, 1vw, 18px)" }}>
                 <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 24, height: 24, flexShrink: 0 }}>{c.icon}</span>
-                <span style={{ color: "white", fontSize: "clamp(13px, 1.05vw, 20px)", fontFamily: "Plus Jakarta Sans, sans-serif" }}>{c.text}</span>
+                <span style={{ color: "white", fontSize: "clamp(13px, 1.05vw, 20px)", fontFamily: B }}>{c.text}</span>
               </div>
             ))}
           </div>
@@ -367,8 +413,8 @@ function Presentation({ slides }) {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ width: "100vw", height: "100vh", background: "#000", position: "relative", overflow: "hidden", fontFamily: "Plus Jakarta Sans, sans-serif" }} onMouseMove={resetHideTimer}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap'); * { margin: 0; padding: 0; box-sizing: border-box; } body { margin: 0; overflow: hidden; background: #000; }`}</style>
+    <div ref={containerRef} style={{ width: "100vw", height: "100vh", background: "#000", position: "relative", overflow: "hidden", fontFamily: B }} onMouseMove={resetHideTimer}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap'); * { margin: 0; padding: 0; box-sizing: border-box; } body { margin: 0; overflow: hidden; background: #000; }`}</style>
 
       {slides.map((SlideComponent, i) => {
         const isCurrent = i === current;
@@ -387,11 +433,11 @@ function Presentation({ slides }) {
 
       {/* Controls */}
       <div style={{ position: "absolute", inset: 0, zIndex: 100, pointerEvents: "none", opacity: controlsVisible ? 1 : 0, transition: "opacity 300ms ease" }}>
-        <div style={{ position: "absolute", top: "clamp(12px, 1.5%, 24px)", right: "clamp(16px, 2%, 32px)", color: "rgba(255,255,255,0.4)", fontSize: 11, fontFamily: "Plus Jakarta Sans, sans-serif" }}>
-          ← → Navigate · F Fullscreen
+        <div style={{ position: "absolute", top: "clamp(12px, 1.5%, 24px)", right: "clamp(16px, 2%, 32px)", color: "rgba(255,255,255,0.4)", fontSize: 11, fontFamily: B }}>
+          &larr; &rarr; Navigate &middot; F Fullscreen
         </div>
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "clamp(12px, 1.5%, 24px) clamp(24px, 3%, 48px)", pointerEvents: "auto" }}>
-          <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, fontVariantNumeric: "tabular-nums", fontFamily: "Plus Jakarta Sans, sans-serif", minWidth: 60 }}>
+          <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, fontVariantNumeric: "tabular-nums", fontFamily: B, minWidth: 60 }}>
             {current + 1} / {total}
           </span>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -427,5 +473,16 @@ function Presentation({ slides }) {
    APP
    ═══════════════════════════════════════ */
 export default function App() {
-  return <Presentation slides={[<CoverSlide />, <IntroSlide />, <AnalyticsSlide />, <QuoteSlide />, <OutroSlide />]} />;
+  return (
+    <Presentation
+      slides={[
+        <CoverSlide />,
+        <CredentialsSlide />,
+        <ServicesSlide />,
+        <SectorsSlide />,
+        <QuoteSlide />,
+        <ContactSlide />,
+      ]}
+    />
+  );
 }
